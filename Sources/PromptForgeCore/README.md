@@ -10,9 +10,13 @@ Portable logic. No AppKit, no SwiftUI. This target must stay reusable outside ma
 
 The test double `FakeEngine` lives in the test target and lets everything above the seam be tested without a network.
 
+## Landed (Phase 2: Style Guide Store)
+
+- `StyleGuide` and `GuideMetadata` (`StyleGuide.swift`): the parsed guide (metadata header plus Markdown body), with a lenient front-matter parser and a canonical serialiser that round-trips.
+- `StyleGuideProviding` and `StyleGuideStore` (`StyleGuideStore.swift`): resolve the on-disk guides folder, seed it from the bundled guides on first run without overwriting user edits, list targets, load a guide by target, and save edits back. Knows nothing about rewriting or the UI.
+
 ## Planned (later phases)
 
-- `StyleGuideStore`: loads, saves, and hands out per-target Markdown guides.
 - `Translator`: the single place the meta-prompt is assembled.
 - `HistoryStore`: append-only record of every translation.
 - `RefreshService`: on-demand research and diff-and-approve guide updates.
