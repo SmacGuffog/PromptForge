@@ -122,8 +122,8 @@ enum GuideMarkdown {
         var lastRefreshed: Date?
         for line in lines {
             guard let colon = line.firstIndex(of: ":") else { continue }
-            let key = line[..<colon].trimmingCharacters(in: .whitespaces).lowercased()
-            let value = line[line.index(after: colon)...].trimmingCharacters(in: .whitespaces)
+            let key = String(line[..<colon]).trimmingCharacters(in: .whitespaces).lowercased()
+            let value = String(line[line.index(after: colon)...]).trimmingCharacters(in: .whitespaces)
             switch key {
             case "target":
                 if !value.isEmpty { target = value }
