@@ -26,6 +26,7 @@ let package = Package(
         // history store, refresh service. No AppKit or SwiftUI here.
         .target(
             name: "PromptForgeCore",
+            exclude: ["README.md"],
             resources: [
                 .copy("Resources/StyleGuides")
             ]
@@ -34,11 +35,13 @@ let package = Package(
         // and AppKit. Talks to the core, never to an engine directly.
         .executableTarget(
             name: "PromptForgeApp",
-            dependencies: ["PromptForgeCore"]
+            dependencies: ["PromptForgeCore"],
+            exclude: ["README.md"]
         ),
         .testTarget(
             name: "PromptForgeCoreTests",
-            dependencies: ["PromptForgeCore"]
+            dependencies: ["PromptForgeCore"],
+            exclude: ["README.md"]
         )
     ]
 )
