@@ -20,10 +20,16 @@ The test double `FakeEngine` lives in the test target and lets everything above 
 - `Settings`, `Hotkey`, `Theme`, and `SettingsStore` (`Settings.swift`): the config model (active engine, model per engine, hotkey, default target, theme) with defaults, tolerant decoding, and file-based JSON persistence. Default cloud model is `claude-haiku-4-5`; default local model is `qwen2.5:7b`.
 - `SecretStore`, `KeychainError`, and `KeychainSecretStore` (`Keychain.swift`): the Anthropic API key in the macOS Keychain, behind a protocol so callers can be faked. Guarded so the module still compiles where Security is unavailable.
 
+## Landed (Phase 4: History Store)
+
+- `HistoryEntry`, `HistoryRecording`, and `HistoryStore` (`History.swift`): an append-only JSON Lines record of every translation (raw input verbatim, optimised output, target, engine label, timestamp). One entry per line, read newest first, plus `clear()`. `HistoryRecording` is the write-only seam the Translator depends on.
+
+## Landed (Phase 5: Translator)
+
+- `Translator` (`Translator.swift`): the orchestrator. Loads a target's guide, assembles the meta-prompt in the one place it is built, hands it to the active engine, and records the result in history on success. Holds the engine through `RewriteEngine`, never a concrete type; swap `engine` to switch cloud and local.
+
 ## Planned (later phases)
 
-- `Translator`: the single place the meta-prompt is assembled.
-- `HistoryStore`: append-only record of every translation.
 - `RefreshService`: on-demand research and diff-and-approve guide updates.
 - `CloudEngine` (Anthropic) and `LocalEngine` (Ollama): the two concrete `RewriteEngine` implementations.
 
