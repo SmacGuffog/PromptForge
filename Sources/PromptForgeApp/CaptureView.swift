@@ -29,7 +29,7 @@ struct CaptureView: View {
             }
         }
         .padding(16)
-        .frame(width: 480)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .onExitCommand(perform: onClose)
     }
 

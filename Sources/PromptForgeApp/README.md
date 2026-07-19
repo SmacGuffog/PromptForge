@@ -14,9 +14,18 @@ The macOS SwiftUI menu-bar UI. The only Mac-locked target. It imports SwiftUI, A
 - `CaptureViewModel.swift`: holds the input, target selection, and result; runs a translation and auto-copies the output to the clipboard.
 - `CaptureView.swift`: the small, keyboard-driven capture window: input field, target dropdown, translate (Cmd+Return), a before/after toggle, and a copy button. Escape closes it.
 
+## Landed (Phase 10: History tab)
+
+- `HistoryView.swift`: a reverse-chronological list (`RootView` hosts it as a tab). Each row shows the target, an engine badge, and the timestamp, and expands to the raw-versus-optimised pair with a copy button. A clear-history button covers cleanup.
+- `RootView.swift`: the tabbed window container (Capture, History, Settings), applying the theme.
+
+## Landed (Phase 11: Settings pane)
+
+- `SettingsView.swift`: engine and per-engine model, default target, global hotkey (modifier toggles plus a key picker), theme, and an optional Anthropic API key (stored in the Keychain, only needed for the cloud engine). Changes apply live through the composition root, which persists them and rebuilds the engine; `AppDelegate` re-registers the hotkey when it changes.
+
 ## Planned (later phases)
 
-- History tab, settings pane, and the guide editor plus refresh diff view.
+- The guide editor plus refresh diff view.
 - whisper.cpp dictation feeding the capture field.
 
 ## Running it
