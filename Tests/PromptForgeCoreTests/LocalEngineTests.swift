@@ -36,7 +36,8 @@ final class LocalEngineTests: XCTestCase {
             baseURL: baseURL,
             transport: RecordingTransport(status: 200, body: okBody("LOCAL OUT"))
         )
-        XCTAssertEqual(try await engine.rewrite(metaPrompt: "x"), "LOCAL OUT")
+        let result = try await engine.rewrite(metaPrompt: "x")
+        XCTAssertEqual(result, "LOCAL OUT")
     }
 
     func testNoChoicesThrowsEmptyResponse() async {

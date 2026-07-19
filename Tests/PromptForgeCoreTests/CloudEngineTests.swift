@@ -55,7 +55,8 @@ final class CloudEngineTests: XCTestCase {
             baseURL: baseURL,
             transport: RecordingTransport(status: 200, body: body)
         )
-        XCTAssertEqual(try await engine.rewrite(metaPrompt: "x"), "AB")
+        let result = try await engine.rewrite(metaPrompt: "x")
+        XCTAssertEqual(result, "AB")
     }
 
     func testEmptyContentThrowsEmptyResponse() async {
