@@ -28,9 +28,16 @@ The test double `FakeEngine` lives in the test target and lets everything above 
 
 - `Translator` (`Translator.swift`): the orchestrator. Loads a target's guide, assembles the meta-prompt in the one place it is built, hands it to the active engine, and records the result in history on success. Holds the engine through `RewriteEngine`, never a concrete type; swap `engine` to switch cloud and local.
 
+## Landed (Phases 6 and 7: the two concrete engines)
+
+- `HTTPTransport` and `URLSessionHTTPTransport` (`HTTPTransport.swift`): the injectable HTTP seam both engines send through, so they test against canned responses with no real network.
+- `CloudEngine` (`CloudEngine.swift`): the Anthropic Messages API (version 2023-06-01), Haiku by default. Reads the key from the secret store at call time, sends the meta-prompt as a single user message, and maps transport and API failures onto `RewriteError`.
+- `LocalEngine` (`LocalEngine.swift`): Ollama's OpenAI-compatible endpoint, Qwen 2.5 7B by default. Reports a clear `engineUnavailable` error when Ollama is not reachable.
+
+With both engines the core is complete: everything above the `RewriteEngine` seam is portable, and switching cloud and local is assigning a different conforming value.
+
 ## Planned (later phases)
 
 - `RefreshService`: on-demand research and diff-and-approve guide updates.
-- `CloudEngine` (Anthropic) and `LocalEngine` (Ollama): the two concrete `RewriteEngine` implementations.
 
 `Resources/StyleGuides/` holds the seeded, editable per-target guides shipped with the app.
