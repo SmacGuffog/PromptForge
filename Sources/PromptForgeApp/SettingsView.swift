@@ -8,7 +8,7 @@ import PromptForgeCore
 /// optional Anthropic API key in the Keychain.
 @MainActor
 final class SettingsViewModel: ObservableObject {
-    @Published var draft: Settings
+    @Published var draft: PromptForgeCore.Settings
     @Published var apiKeyInput: String = ""
     @Published private(set) var hasStoredKey: Bool = false
     @Published private(set) var keyStatus: String?
