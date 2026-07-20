@@ -21,7 +21,11 @@ The macOS SwiftUI menu-bar UI. The only Mac-locked target. It imports SwiftUI, A
 
 ## Landed (Phase 11: Settings pane)
 
-- `SettingsView.swift`: engine and per-engine model, default target, global hotkey (modifier toggles plus a key picker), theme, and an optional Anthropic API key (stored in the Keychain, only needed for the cloud engine). Changes apply live through the composition root, which persists them and rebuilds the engine; `AppDelegate` re-registers the hotkey when it changes.
+- `SettingsView.swift`: local model tag, default target, global hotkey (modifier toggles plus a key picker), and theme. Changes apply live through the composition root, which persists them and rebuilds the engine; `AppDelegate` re-registers the hotkey when it changes.
+
+## Local-only
+
+PromptForge runs fully on-device. `AppEnvironment` always builds the local Ollama engine, so nothing in the app reaches an external API. The core library still ships `CloudEngine` behind the `RewriteEngine` protocol (tested, and the swappable-brain boundary the design rests on), but this app does not surface or use it.
 
 ## Planned (later phases)
 
